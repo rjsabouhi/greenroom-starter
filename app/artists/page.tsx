@@ -108,7 +108,9 @@ function Bucket({
             key={artist.id}
             className="group relative rounded-lg border border-ink-200/60 bg-white p-5 transition-all duration-150 hover:shadow-[0_4px_16px_rgba(26,24,20,0.06)] hover:-translate-y-0.5 hover:border-ink-200"
           >
-            <div className={`absolute top-4 right-4 w-2 h-2 rounded-full ${genreColor(artist.genre)} opacity-60`} />
+            <div
+              className={`absolute top-4 right-4 w-2 h-2 rounded-full ${genreColor(artist.genre)} opacity-60`}
+            />
             <div className="text-[15px] font-medium text-ink-900 group-hover:text-brand-800 transition-colors leading-tight">
               {artist.name}
             </div>
@@ -126,7 +128,9 @@ function Bucket({
                   />
                 ))}
                 {showCount > 8 && (
-                  <span className="text-[9px] text-ink-400 ml-0.5">+{showCount - 8}</span>
+                  <span className="text-[9px] text-ink-400 ml-0.5">
+                    +{showCount - 8}
+                  </span>
                 )}
               </div>
               <span className="text-[11px] font-mono tabular text-ink-500 ml-1">

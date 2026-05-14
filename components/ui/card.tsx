@@ -9,10 +9,8 @@ export function Card({
   accent?: "brand" | "amber" | "rose" | "sky";
 }) {
   const accentClasses: Record<string, string> = {
-    brand:
-      "before:bg-gradient-to-r before:from-brand-500 before:to-brand-700",
-    amber:
-      "before:bg-gradient-to-r before:from-amber-200 before:to-amber-700",
+    brand: "before:bg-gradient-to-r before:from-brand-500 before:to-brand-700",
+    amber: "before:bg-gradient-to-r before:from-amber-200 before:to-amber-700",
     rose: "before:bg-gradient-to-r before:from-rose-300 before:to-rose-700",
     sky: "before:bg-gradient-to-r before:from-sky-300 before:to-sky-700",
   };
@@ -70,7 +68,10 @@ export function CardDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-[12px] text-ink-500 mt-0.5 leading-relaxed", className)}
+      className={cn(
+        "text-[12px] text-ink-500 mt-0.5 leading-relaxed",
+        className,
+      )}
       {...props}
     />
   );
@@ -111,9 +112,7 @@ export function Field({
 }) {
   return (
     <div className={className}>
-      <div className="eyebrow text-[10px] text-ink-500 mb-1">
-        {label}
-      </div>
+      <div className="eyebrow text-[10px] text-ink-500 mb-1">{label}</div>
       <div
         className={cn(
           "text-[13.5px] text-ink-900",

@@ -40,8 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Greenroom",
-    description:
-      "Operating system for independent music venues.",
+    description: "Operating system for independent music venues.",
   },
   robots: {
     index: false,

@@ -248,7 +248,8 @@ function applyBonuses(
       notTriggered.push({
         label: b.label,
         amount: 0,
-        reason: "Tier ratchets need vs-deal or % of net support — not yet handled",
+        reason:
+          "Tier ratchets need vs-deal or % of net support — not yet handled",
       });
     }
   }

@@ -12,7 +12,11 @@ export function Sidebar() {
           <div>
             <div
               className="font-display text-ink-900 leading-none"
-              style={{ fontSize: 15, fontWeight: 500, letterSpacing: "-0.02em" }}
+              style={{
+                fontSize: 15,
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+              }}
             >
               Greenroom
             </div>

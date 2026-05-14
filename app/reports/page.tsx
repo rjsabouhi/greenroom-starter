@@ -30,9 +30,10 @@ export default async function ReportsPage() {
     .map((stage) => ({
       stage,
       count: r.settlementStatus[stage] ?? 0,
-      pct: r.totalSettlements > 0
-        ? (r.settlementStatus[stage] ?? 0) / r.totalSettlements
-        : 0,
+      pct:
+        r.totalSettlements > 0
+          ? (r.settlementStatus[stage] ?? 0) / r.totalSettlements
+          : 0,
     }))
     .filter((d) => d.count > 0);
 
@@ -92,8 +93,16 @@ export default async function ReportsPage() {
       <div className="flex items-baseline gap-10 pt-6 border-t border-ink-200/60 mb-14">
         <Stat label="Shows in window" value={String(r.showCount)} />
         <Stat label="Settled" value={String(r.settledCount)} accent />
-        <Stat label="Gross box office" value={formatMoneyCompact(r.totalGross)} mono />
-        <Stat label="Paid to artists" value={formatMoneyCompact(r.totalToArtists)} mono />
+        <Stat
+          label="Gross box office"
+          value={formatMoneyCompact(r.totalGross)}
+          mono
+        />
+        <Stat
+          label="Paid to artists"
+          value={formatMoneyCompact(r.totalToArtists)}
+          mono
+        />
       </div>
 
       {/* Settlement craft gap — THE visual anchor */}
@@ -119,9 +128,10 @@ export default async function ReportsPage() {
                 {unsupportedPct}%
               </div>
               <p className="text-[12.5px] text-ink-600 mt-4 leading-relaxed max-w-sm">
-                At The Crescent, {unsupportedPct}% of deals — Vs deals, % of net, and
-                door deals — are deal types the in-app tool can&apos;t settle.
-                Across all customers, only about 18% actively use the tool at all.
+                At The Crescent, {unsupportedPct}% of deals — Vs deals, % of
+                net, and door deals — are deal types the in-app tool can&apos;t
+                settle. Across all customers, only about 18% actively use the
+                tool at all.
               </p>
             </div>
           </div>
@@ -165,7 +175,8 @@ export default async function ReportsPage() {
             const isProblem =
               stage === "disputed" || stage === "revised" || stage === "voided";
             const isDone = stage === "paid";
-            const barWidth = maxLifecycleCount > 0 ? (count / maxLifecycleCount) * 100 : 0;
+            const barWidth =
+              maxLifecycleCount > 0 ? (count / maxLifecycleCount) * 100 : 0;
             return (
               <div key={stage} className="flex items-center gap-3 group">
                 <div className="w-20 text-right">
@@ -385,8 +396,7 @@ export default async function ReportsPage() {
       </div>
 
       <div className="text-[11.5px] text-ink-400 leading-relaxed">
-        {r.dealsWithBonuses} of {r.totalDeals} deals carry structured bonuses
-        in{" "}
+        {r.dealsWithBonuses} of {r.totalDeals} deals carry structured bonuses in{" "}
         <code className="font-mono text-[10px] bg-ink-100/60 px-1 py-0.5 rounded">
           bonuses_json
         </code>

@@ -6,12 +6,7 @@ import {
   Users,
   AlertCircle,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ContextPage() {
   return (
@@ -24,10 +19,11 @@ export default function ContextPage() {
       </Link>
 
       <div className="mb-20">
-        <div className="eyebrow mb-3">
-          Where to start
-        </div>
-        <h1 className="font-display text-[48px] font-medium text-ink-900 leading-[1.05]" style={{ letterSpacing: "-0.02em", fontOpticalSizing: "auto" }}>
+        <div className="eyebrow mb-3">Where to start</div>
+        <h1
+          className="font-display text-[48px] font-medium text-ink-900 leading-[1.05]"
+          style={{ letterSpacing: "-0.02em", fontOpticalSizing: "auto" }}
+        >
           Welcome to Greenroom.
         </h1>
         <p className="text-[14.5px] text-ink-600 mt-4 leading-relaxed max-w-2xl">
@@ -46,13 +42,16 @@ export default function ContextPage() {
             Read your case study brief first.
           </strong>{" "}
           It explains the problem you&apos;re solving and the principles
-          we&apos;re evaluating you on. This page is just orientation inside
-          the product itself.
+          we&apos;re evaluating you on. This page is just orientation inside the
+          product itself.
         </p>
       </div>
 
       {/* Tour */}
-      <h2 className="font-display text-[24px] font-medium text-ink-900 mb-4" style={{ letterSpacing: "-0.02em" }}>
+      <h2
+        className="font-display text-[24px] font-medium text-ink-900 mb-4"
+        style={{ letterSpacing: "-0.02em" }}
+      >
         A 5-minute tour
       </h2>
       <ol className="space-y-5 text-[13.5px] text-ink-600 leading-relaxed mb-14">
@@ -69,16 +68,16 @@ export default function ContextPage() {
           settlement.
         </Step>
         <Step n={2}>
-          Read the deal terms on a show detail page. Notice the gap between
-          the structured fields (guarantee, percentage, expense cap) and the
+          Read the deal terms on a show detail page. Notice the gap between the
+          structured fields (guarantee, percentage, expense cap) and the
           free-text <em>deal notes</em> — the prose is what Mariana actually
           trusts.
         </Step>
         <Step n={3}>
           Click the green <strong>Settle show</strong> button. For most deal
           types — Vs deals, % of net, door deals — the tool will tell you it
-          isn&apos;t supported. That empty state is the seam this case study
-          is about.
+          isn&apos;t supported. That empty state is the seam this case study is
+          about.
         </Step>
         <Step n={4}>
           Try Settle on a show with a <strong>Flat</strong> badge. The tool
@@ -103,7 +102,10 @@ export default function ContextPage() {
       </ol>
 
       {/* Materials */}
-      <h2 className="font-display text-[24px] font-medium text-ink-900 mb-4" style={{ letterSpacing: "-0.02em" }}>
+      <h2
+        className="font-display text-[24px] font-medium text-ink-900 mb-4"
+        style={{ letterSpacing: "-0.02em" }}
+      >
         Materials in the repo
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
@@ -134,20 +136,23 @@ export default function ContextPage() {
       </div>
 
       {/* How we evaluate */}
-      <h2 className="font-display text-[24px] font-medium text-ink-900 mb-4" style={{ letterSpacing: "-0.02em" }}>
+      <h2
+        className="font-display text-[24px] font-medium text-ink-900 mb-4"
+        style={{ letterSpacing: "-0.02em" }}
+      >
         How we&apos;re thinking about your work
       </h2>
       <p className="text-[13.5px] text-ink-600 leading-relaxed">
         Settlement isn&apos;t one problem. It&apos;s several adjacent ones —
-        deal modeling, audit trails, real-time prediction, the 2am
-        walkthrough conversation, post-show agent communication. Pick one
-        slice (or a tightly coupled pair). Take it deep. Don&apos;t try to
-        fix the whole thing.
+        deal modeling, audit trails, real-time prediction, the 2am walkthrough
+        conversation, post-show agent communication. Pick one slice (or a
+        tightly coupled pair). Take it deep. Don&apos;t try to fix the whole
+        thing.
       </p>
       <p className="text-[13.5px] text-ink-600 leading-relaxed mt-3">
         Your case study brief explains what we&apos;re evaluating you on.
-        We&apos;ll talk about your slice in person — what you picked, what
-        you cut, what you cut deliberately, and what you&apos;d ship next.
+        We&apos;ll talk about your slice in person — what you picked, what you
+        cut, what you cut deliberately, and what you&apos;d ship next.
       </p>
 
       {/* Data skepticism hint */}
@@ -160,9 +165,9 @@ export default function ContextPage() {
           values, statuses don&apos;t always match the underlying reality, and
           patterns hide across many shows that look unremarkable in isolation.
           What the UI shows you isn&apos;t always what the data says — and
-          neither is necessarily what actually happened. We&apos;d encourage
-          you to read the data closely, query it directly, and bring
-          skepticism to anything that seems too clean.
+          neither is necessarily what actually happened. We&apos;d encourage you
+          to read the data closely, query it directly, and bring skepticism to
+          anything that seems too clean.
         </p>
       </div>
 

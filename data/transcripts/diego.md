@@ -34,7 +34,7 @@ Three: the booker's math is opaque. They give me a number and I have no idea how
 
 **Anil:** Have you ever had a settlement go really well at The Crescent?
 
-**Diego:** Yeah, mostly they go well. Mariana is one of the good ones. She's on top of her numbers, she shows her work, she's honest about what she's absorbing versus passing through. I trust her math because she shows me. The 2am part is still the 2am part — I'm tired, she's tired — but the *conversation* is fine.
+**Diego:** Yeah, mostly they go well. Mariana is one of the good ones. She's on top of her numbers, she shows her work, she's honest about what she's absorbing versus passing through. I trust her math because she shows me. The 2am part is still the 2am part — I'm tired, she's tired — but the _conversation_ is fine.
 
 The thing I don't get is why she's doing it in a Google Sheet. Like, she has all this software, why is she using a spreadsheet? But I get it — the spreadsheet does what she needs.
 

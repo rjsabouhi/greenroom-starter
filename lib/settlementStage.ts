@@ -35,23 +35,18 @@ export const STAGE_LABELS: Record<SettlementStage, string> = {
 };
 
 export const STAGE_DESCRIPTIONS: Record<SettlementStage, string> = {
-  draft:
-    "Mariana is still entering numbers. Not yet sent to the artist team.",
+  draft: "Mariana is still entering numbers. Not yet sent to the artist team.",
   submitted:
     "Sent to the artist's tour manager. Waiting for them to start review.",
   in_review:
     "The artist team has opened the settlement and is reviewing line items.",
-  signed:
-    "The artist team has approved the math. Money has not yet moved.",
-  disputed:
-    "At least one line item is contested. The settlement is on hold.",
+  signed: "The artist team has approved the math. Money has not yet moved.",
+  disputed: "At least one line item is contested. The settlement is on hold.",
   revised:
     "A revised version has been sent in response to a dispute. Awaiting acceptance.",
-  finalized:
-    "The revised settlement has been agreed. Awaiting payment.",
+  finalized: "The revised settlement has been agreed. Awaiting payment.",
   paid: "Money has moved. The settlement is closed.",
-  voided:
-    "The settlement was scrapped (cancelled show, force majeure, etc.).",
+  voided: "The settlement was scrapped (cancelled show, force majeure, etc.).",
 };
 
 /** Visual style hints for each stage — used by the UI. */

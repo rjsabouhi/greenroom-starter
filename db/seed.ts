@@ -89,65 +89,419 @@ interface ArtistDef {
 }
 
 const ARTIST_DEFS: ArtistDef[] = [
-  { id: "art_pale_lake", name: "Pale Lake", genre: "indie rock", tier: "A", recurrence: 3 },
-  { id: "art_coastal_spell", name: "Coastal Spell", genre: "shoegaze", tier: "A", recurrence: 2 },
-  { id: "art_the_quiet_houses", name: "The Quiet Houses", genre: "indie rock", tier: "A", recurrence: 2 },
-  { id: "art_orenda", name: "Orenda", genre: "art rock", tier: "A", recurrence: 2 },
-  { id: "art_jenny_hardwick", name: "Jenny Hardwick", genre: "songwriter", tier: "A", recurrence: 2 },
-  { id: "art_summer_bonanza", name: "Summer Bonanza", genre: "garage rock", tier: "A", recurrence: 2 },
-  { id: "art_lemonglow", name: "Lemonglow", genre: "dream pop", tier: "A", recurrence: 1 },
-  { id: "art_mariners_wake", name: "Mariner's Wake", genre: "folk rock", tier: "A", recurrence: 2 },
-  { id: "art_nevada_sundown", name: "Nevada Sundown", genre: "americana", tier: "B", recurrence: 4 },
-  { id: "art_courier", name: "Courier", genre: "alt country", tier: "B", recurrence: 3 },
-  { id: "art_cold_comfort", name: "Cold Comfort", genre: "indie pop", tier: "B", recurrence: 3 },
-  { id: "art_briar_road", name: "Briar Road", genre: "americana", tier: "B", recurrence: 2 },
-  { id: "art_telegraph_avenue", name: "Telegraph Avenue", genre: "soul", tier: "B", recurrence: 3 },
-  { id: "art_the_first_light", name: "The First Light", genre: "indie rock", tier: "B", recurrence: 2 },
-  { id: "art_minor_holiday", name: "Minor Holiday", genre: "indie pop", tier: "B", recurrence: 3 },
-  { id: "art_grand_central", name: "Grand Central", genre: "rock", tier: "B", recurrence: 2 },
-  { id: "art_winter_circle", name: "Winter Circle", genre: "indie folk", tier: "B", recurrence: 2 },
-  { id: "art_august_haze", name: "August Haze", genre: "psych rock", tier: "B", recurrence: 3 },
-  { id: "art_milk_route", name: "Milk Route", genre: "indie rock", tier: "B", recurrence: 2 },
-  { id: "art_drive_north", name: "Drive North", genre: "alt country", tier: "B", recurrence: 2 },
-  { id: "art_rookie_dive", name: "Rookie Dive", genre: "indie pop", tier: "C", recurrence: 4 },
-  { id: "art_hollow_branch", name: "Hollow Branch", genre: "post rock", tier: "C", recurrence: 3 },
-  { id: "art_low_rooms", name: "Low Rooms", genre: "indie rock", tier: "C", recurrence: 4 },
-  { id: "art_navarro", name: "Navarro", genre: "songwriter", tier: "C", recurrence: 3 },
-  { id: "art_stoneflower", name: "Stoneflower", genre: "indie folk", tier: "C", recurrence: 3 },
-  { id: "art_wax_paper", name: "Wax Paper", genre: "indie pop", tier: "C", recurrence: 3 },
-  { id: "art_rivers_end", name: "Rivers End", genre: "americana", tier: "C", recurrence: 4 },
-  { id: "art_blue_dial", name: "Blue Dial", genre: "indie rock", tier: "C", recurrence: 3 },
-  { id: "art_gentle_riot", name: "Gentle Riot", genre: "garage rock", tier: "C", recurrence: 3 },
-  { id: "art_park_avenue", name: "Park Avenue", genre: "indie pop", tier: "C", recurrence: 3 },
-  { id: "art_ferns", name: "Ferns", genre: "ambient", tier: "C", recurrence: 2 },
-  { id: "art_sunday_drivers", name: "Sunday Drivers", genre: "alt country", tier: "C", recurrence: 3 },
-  { id: "art_post_hill", name: "Post Hill", genre: "indie rock", tier: "C", recurrence: 3 },
-  { id: "art_lonesome_west", name: "Lonesome West", genre: "americana", tier: "C", recurrence: 2 },
-  { id: "art_north_blue", name: "North Blue", genre: "indie folk", tier: "C", recurrence: 3 },
-  { id: "art_overcoats", name: "Overcoats", genre: "indie pop", tier: "C", recurrence: 2 },
-  { id: "art_radio_tower", name: "Radio Tower", genre: "indie rock", tier: "C", recurrence: 3 },
-  { id: "art_low_country", name: "Low Country", genre: "americana", tier: "C", recurrence: 4 },
-  { id: "art_wet_cement", name: "Wet Cement", genre: "garage rock", tier: "D", recurrence: 6 },
-  { id: "art_red_letter", name: "Red Letter", genre: "indie rock", tier: "D", recurrence: 5 },
-  { id: "art_evening_wear", name: "Evening Wear", genre: "indie pop", tier: "D", recurrence: 4 },
-  { id: "art_simple_machines", name: "Simple Machines", genre: "punk", tier: "D", recurrence: 5 },
-  { id: "art_two_lanes", name: "Two Lanes", genre: "alt country", tier: "D", recurrence: 4 },
-  { id: "art_atlas_atlas", name: "Atlas Atlas", genre: "indie rock", tier: "D", recurrence: 3 },
-  { id: "art_kerosene_kid", name: "Kerosene Kid", genre: "blues rock", tier: "D", recurrence: 4 },
-  { id: "art_stay_dry", name: "Stay Dry", genre: "indie pop", tier: "D", recurrence: 3 },
-  { id: "art_basement_window", name: "Basement Window", genre: "indie rock", tier: "D", recurrence: 4 },
-  { id: "art_warm_milk", name: "Warm Milk", genre: "shoegaze", tier: "D", recurrence: 3 },
-  { id: "art_dust_off", name: "Dust Off", genre: "garage rock", tier: "D", recurrence: 5 },
-  { id: "art_pen_pal", name: "Pen Pal", genre: "indie pop", tier: "D", recurrence: 3 },
-  { id: "art_safe_houses", name: "Safe Houses", genre: "indie rock", tier: "D", recurrence: 4 },
-  { id: "art_lake_effect", name: "Lake Effect", genre: "ambient", tier: "D", recurrence: 3 },
-  { id: "art_tin_signal", name: "Tin Signal", genre: "post rock", tier: "D", recurrence: 4 },
-  { id: "art_hospital_corners", name: "Hospital Corners", genre: "punk", tier: "D", recurrence: 3 },
-  { id: "art_glass_bottle", name: "Glass Bottle", genre: "indie folk", tier: "D", recurrence: 4 },
-  { id: "art_freight_class", name: "Freight Class", genre: "rock", tier: "D", recurrence: 3 },
-  { id: "art_ledger", name: "Ledger", genre: "indie pop", tier: "D", recurrence: 3 },
-  { id: "art_deck_chairs", name: "Deck Chairs", genre: "americana", tier: "D", recurrence: 4 },
-  { id: "art_house_of_lights", name: "House of Lights", genre: "indie rock", tier: "D", recurrence: 3 },
+  {
+    id: "art_pale_lake",
+    name: "Pale Lake",
+    genre: "indie rock",
+    tier: "A",
+    recurrence: 3,
+  },
+  {
+    id: "art_coastal_spell",
+    name: "Coastal Spell",
+    genre: "shoegaze",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_the_quiet_houses",
+    name: "The Quiet Houses",
+    genre: "indie rock",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_orenda",
+    name: "Orenda",
+    genre: "art rock",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_jenny_hardwick",
+    name: "Jenny Hardwick",
+    genre: "songwriter",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_summer_bonanza",
+    name: "Summer Bonanza",
+    genre: "garage rock",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_lemonglow",
+    name: "Lemonglow",
+    genre: "dream pop",
+    tier: "A",
+    recurrence: 1,
+  },
+  {
+    id: "art_mariners_wake",
+    name: "Mariner's Wake",
+    genre: "folk rock",
+    tier: "A",
+    recurrence: 2,
+  },
+  {
+    id: "art_nevada_sundown",
+    name: "Nevada Sundown",
+    genre: "americana",
+    tier: "B",
+    recurrence: 4,
+  },
+  {
+    id: "art_courier",
+    name: "Courier",
+    genre: "alt country",
+    tier: "B",
+    recurrence: 3,
+  },
+  {
+    id: "art_cold_comfort",
+    name: "Cold Comfort",
+    genre: "indie pop",
+    tier: "B",
+    recurrence: 3,
+  },
+  {
+    id: "art_briar_road",
+    name: "Briar Road",
+    genre: "americana",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_telegraph_avenue",
+    name: "Telegraph Avenue",
+    genre: "soul",
+    tier: "B",
+    recurrence: 3,
+  },
+  {
+    id: "art_the_first_light",
+    name: "The First Light",
+    genre: "indie rock",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_minor_holiday",
+    name: "Minor Holiday",
+    genre: "indie pop",
+    tier: "B",
+    recurrence: 3,
+  },
+  {
+    id: "art_grand_central",
+    name: "Grand Central",
+    genre: "rock",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_winter_circle",
+    name: "Winter Circle",
+    genre: "indie folk",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_august_haze",
+    name: "August Haze",
+    genre: "psych rock",
+    tier: "B",
+    recurrence: 3,
+  },
+  {
+    id: "art_milk_route",
+    name: "Milk Route",
+    genre: "indie rock",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_drive_north",
+    name: "Drive North",
+    genre: "alt country",
+    tier: "B",
+    recurrence: 2,
+  },
+  {
+    id: "art_rookie_dive",
+    name: "Rookie Dive",
+    genre: "indie pop",
+    tier: "C",
+    recurrence: 4,
+  },
+  {
+    id: "art_hollow_branch",
+    name: "Hollow Branch",
+    genre: "post rock",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_low_rooms",
+    name: "Low Rooms",
+    genre: "indie rock",
+    tier: "C",
+    recurrence: 4,
+  },
+  {
+    id: "art_navarro",
+    name: "Navarro",
+    genre: "songwriter",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_stoneflower",
+    name: "Stoneflower",
+    genre: "indie folk",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_wax_paper",
+    name: "Wax Paper",
+    genre: "indie pop",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_rivers_end",
+    name: "Rivers End",
+    genre: "americana",
+    tier: "C",
+    recurrence: 4,
+  },
+  {
+    id: "art_blue_dial",
+    name: "Blue Dial",
+    genre: "indie rock",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_gentle_riot",
+    name: "Gentle Riot",
+    genre: "garage rock",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_park_avenue",
+    name: "Park Avenue",
+    genre: "indie pop",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_ferns",
+    name: "Ferns",
+    genre: "ambient",
+    tier: "C",
+    recurrence: 2,
+  },
+  {
+    id: "art_sunday_drivers",
+    name: "Sunday Drivers",
+    genre: "alt country",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_post_hill",
+    name: "Post Hill",
+    genre: "indie rock",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_lonesome_west",
+    name: "Lonesome West",
+    genre: "americana",
+    tier: "C",
+    recurrence: 2,
+  },
+  {
+    id: "art_north_blue",
+    name: "North Blue",
+    genre: "indie folk",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_overcoats",
+    name: "Overcoats",
+    genre: "indie pop",
+    tier: "C",
+    recurrence: 2,
+  },
+  {
+    id: "art_radio_tower",
+    name: "Radio Tower",
+    genre: "indie rock",
+    tier: "C",
+    recurrence: 3,
+  },
+  {
+    id: "art_low_country",
+    name: "Low Country",
+    genre: "americana",
+    tier: "C",
+    recurrence: 4,
+  },
+  {
+    id: "art_wet_cement",
+    name: "Wet Cement",
+    genre: "garage rock",
+    tier: "D",
+    recurrence: 6,
+  },
+  {
+    id: "art_red_letter",
+    name: "Red Letter",
+    genre: "indie rock",
+    tier: "D",
+    recurrence: 5,
+  },
+  {
+    id: "art_evening_wear",
+    name: "Evening Wear",
+    genre: "indie pop",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_simple_machines",
+    name: "Simple Machines",
+    genre: "punk",
+    tier: "D",
+    recurrence: 5,
+  },
+  {
+    id: "art_two_lanes",
+    name: "Two Lanes",
+    genre: "alt country",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_atlas_atlas",
+    name: "Atlas Atlas",
+    genre: "indie rock",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_kerosene_kid",
+    name: "Kerosene Kid",
+    genre: "blues rock",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_stay_dry",
+    name: "Stay Dry",
+    genre: "indie pop",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_basement_window",
+    name: "Basement Window",
+    genre: "indie rock",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_warm_milk",
+    name: "Warm Milk",
+    genre: "shoegaze",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_dust_off",
+    name: "Dust Off",
+    genre: "garage rock",
+    tier: "D",
+    recurrence: 5,
+  },
+  {
+    id: "art_pen_pal",
+    name: "Pen Pal",
+    genre: "indie pop",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_safe_houses",
+    name: "Safe Houses",
+    genre: "indie rock",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_lake_effect",
+    name: "Lake Effect",
+    genre: "ambient",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_tin_signal",
+    name: "Tin Signal",
+    genre: "post rock",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_hospital_corners",
+    name: "Hospital Corners",
+    genre: "punk",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_glass_bottle",
+    name: "Glass Bottle",
+    genre: "indie folk",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_freight_class",
+    name: "Freight Class",
+    genre: "rock",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_ledger",
+    name: "Ledger",
+    genre: "indie pop",
+    tier: "D",
+    recurrence: 3,
+  },
+  {
+    id: "art_deck_chairs",
+    name: "Deck Chairs",
+    genre: "americana",
+    tier: "D",
+    recurrence: 4,
+  },
+  {
+    id: "art_house_of_lights",
+    name: "House of Lights",
+    genre: "indie rock",
+    tier: "D",
+    recurrence: 3,
+  },
 ];
 
 const AGENCIES = [
@@ -159,23 +513,115 @@ const AGENCIES = [
 ];
 
 const AGENT_DEFS = [
-  { id: "agent_sarah_kim", name: "Sarah Kim", agencyId: "agcy_wme", email: "skim@wme.com", preferencesNotes: "One of the easier WME agents. Reads settlements carefully but fairly. Pet peeve: 'Miscellaneous' line items in expenses without itemization." },
-  { id: "agent_daniel_hwang", name: "Daniel Hwang", agencyId: "agcy_wme", email: "dhwang@wme.com", preferencesNotes: "Pushes back hard. Wrote the email thread on the Coastal Spell dispute (March 2025). Tends to ambiguity in deal emails — worth pre-negotiating clarifications." },
-  { id: "agent_andrea_pelletier", name: "Andrea Pelletier", agencyId: "agcy_wme", email: "apelletier@wme.com", preferencesNotes: "Negotiates the deals; her colleagues handle settlement." },
-  { id: "agent_danny_ortiz", name: "Danny Ortiz", agencyId: "agcy_caa", email: "dortiz@caa.com", preferencesNotes: "Easygoing. Trusts Mariana. Quick to sign off." },
-  { id: "agent_meera_patel", name: "Meera Patel", agencyId: "agcy_caa", email: "mpatel@caa.com", preferencesNotes: "New at CAA, took over a roster from a departing agent. Still learning our venue." },
-  { id: "agent_chris_lockhart", name: "Chris Lockhart", agencyId: "agcy_caa", email: "clockhart@caa.com", preferencesNotes: null },
-  { id: "agent_pat_cho", name: "Pat Cho", agencyId: "agcy_independent", email: "pat@patcho.co", preferencesNotes: "Books smaller indie bands. Often the artist's manager too." },
-  { id: "agent_rosa_jimenez", name: "Rosa Jimenez", agencyId: "agcy_wasserman", email: "rjimenez@wasserman.com", preferencesNotes: null },
-  { id: "agent_tom_neary", name: "Tom Neary", agencyId: "agcy_wasserman", email: "tneary@wasserman.com", preferencesNotes: "Has his own settlement template he wants filled in. Annoying but he renews the relationship." },
-  { id: "agent_kev_park", name: "Kev Park", agencyId: "agcy_paradigm", email: "kpark@paradigmagency.com", preferencesNotes: null },
-  { id: "agent_naomi_brand", name: "Naomi Brand", agencyId: "agcy_paradigm", email: "nbrand@paradigmagency.com", preferencesNotes: null },
-  { id: "agent_maya_okafor", name: "Maya Okafor", agencyId: "agcy_independent", email: "maya@mayaokafor.com", preferencesNotes: null },
-  { id: "agent_jordan_wells", name: "Jordan Wells", agencyId: "agcy_independent", email: "jordan@wellstalent.com", preferencesNotes: null },
-  { id: "agent_cass_burke", name: "Cass Burke", agencyId: "agcy_independent", email: "cass@burkebooking.com", preferencesNotes: null },
+  {
+    id: "agent_sarah_kim",
+    name: "Sarah Kim",
+    agencyId: "agcy_wme",
+    email: "skim@wme.com",
+    preferencesNotes:
+      "One of the easier WME agents. Reads settlements carefully but fairly. Pet peeve: 'Miscellaneous' line items in expenses without itemization.",
+  },
+  {
+    id: "agent_daniel_hwang",
+    name: "Daniel Hwang",
+    agencyId: "agcy_wme",
+    email: "dhwang@wme.com",
+    preferencesNotes:
+      "Pushes back hard. Wrote the email thread on the Coastal Spell dispute (March 2025). Tends to ambiguity in deal emails — worth pre-negotiating clarifications.",
+  },
+  {
+    id: "agent_andrea_pelletier",
+    name: "Andrea Pelletier",
+    agencyId: "agcy_wme",
+    email: "apelletier@wme.com",
+    preferencesNotes: "Negotiates the deals; her colleagues handle settlement.",
+  },
+  {
+    id: "agent_danny_ortiz",
+    name: "Danny Ortiz",
+    agencyId: "agcy_caa",
+    email: "dortiz@caa.com",
+    preferencesNotes: "Easygoing. Trusts Mariana. Quick to sign off.",
+  },
+  {
+    id: "agent_meera_patel",
+    name: "Meera Patel",
+    agencyId: "agcy_caa",
+    email: "mpatel@caa.com",
+    preferencesNotes:
+      "New at CAA, took over a roster from a departing agent. Still learning our venue.",
+  },
+  {
+    id: "agent_chris_lockhart",
+    name: "Chris Lockhart",
+    agencyId: "agcy_caa",
+    email: "clockhart@caa.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_pat_cho",
+    name: "Pat Cho",
+    agencyId: "agcy_independent",
+    email: "pat@patcho.co",
+    preferencesNotes:
+      "Books smaller indie bands. Often the artist's manager too.",
+  },
+  {
+    id: "agent_rosa_jimenez",
+    name: "Rosa Jimenez",
+    agencyId: "agcy_wasserman",
+    email: "rjimenez@wasserman.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_tom_neary",
+    name: "Tom Neary",
+    agencyId: "agcy_wasserman",
+    email: "tneary@wasserman.com",
+    preferencesNotes:
+      "Has his own settlement template he wants filled in. Annoying but he renews the relationship.",
+  },
+  {
+    id: "agent_kev_park",
+    name: "Kev Park",
+    agencyId: "agcy_paradigm",
+    email: "kpark@paradigmagency.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_naomi_brand",
+    name: "Naomi Brand",
+    agencyId: "agcy_paradigm",
+    email: "nbrand@paradigmagency.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_maya_okafor",
+    name: "Maya Okafor",
+    agencyId: "agcy_independent",
+    email: "maya@mayaokafor.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_jordan_wells",
+    name: "Jordan Wells",
+    agencyId: "agcy_independent",
+    email: "jordan@wellstalent.com",
+    preferencesNotes: null,
+  },
+  {
+    id: "agent_cass_burke",
+    name: "Cass Burke",
+    agencyId: "agcy_independent",
+    email: "cass@burkebooking.com",
+    preferencesNotes: null,
+  },
 ];
 
-const TIER_AGENCY_WEIGHTS: Record<ArtistDef["tier"], { value: string; weight: number }[]> = {
+const TIER_AGENCY_WEIGHTS: Record<
+  ArtistDef["tier"],
+  { value: string; weight: number }[]
+> = {
   A: [
     { value: "agcy_wme", weight: 4 },
     { value: "agcy_caa", weight: 3 },
@@ -222,11 +668,22 @@ interface GeneratedDeal {
   notes: string;
 }
 
-function generateBonuses(tier: ArtistDef["tier"], baseGuarantee: number): Bonus[] | null {
-  const has = rnd() < (tier === "A" ? 0.65 : tier === "B" ? 0.35 : tier === "C" ? 0.15 : 0.05);
+function generateBonuses(
+  tier: ArtistDef["tier"],
+  baseGuarantee: number,
+): Bonus[] | null {
+  const has =
+    rnd() <
+    (tier === "A" ? 0.65 : tier === "B" ? 0.35 : tier === "C" ? 0.15 : 0.05);
   if (!has) return null;
 
-  const bonusType = weighted<"gross_threshold" | "gross_double" | "sellout" | "attendance" | "tier_ratchet">([
+  const bonusType = weighted<
+    | "gross_threshold"
+    | "gross_double"
+    | "sellout"
+    | "attendance"
+    | "tier_ratchet"
+  >([
     { value: "gross_threshold", weight: 5 },
     { value: "gross_double", weight: 2 },
     { value: "sellout", weight: 2 },
@@ -308,7 +765,10 @@ function generateBonuses(tier: ArtistDef["tier"], baseGuarantee: number): Bonus[
 function generateDeal(tier: ArtistDef["tier"]): GeneratedDeal {
   const dealType = weighted<GeneratedDeal["type"]>([
     { value: "flat", weight: tier === "D" ? 6 : tier === "C" ? 3 : 1.5 },
-    { value: "vs", weight: tier === "A" ? 11 : tier === "B" ? 9 : tier === "C" ? 5 : 1 },
+    {
+      value: "vs",
+      weight: tier === "A" ? 11 : tier === "B" ? 9 : tier === "C" ? 5 : 1,
+    },
     { value: "percentage_of_net", weight: 3 },
     { value: "door", weight: tier === "D" ? 1 : 0.5 },
     { value: "percentage_of_gross", weight: 0.5 },
@@ -329,7 +789,7 @@ function generateDeal(tier: ArtistDef["tier"]): GeneratedDeal {
           ? ([
               {
                 type: "sellout" as const,
-                label: `+$${Math.round(baseGuarantee * 0.2 / 100) * 100} on sellout`,
+                label: `+$${Math.round((baseGuarantee * 0.2) / 100) * 100} on sellout`,
                 amount: Math.round((baseGuarantee * 0.2) / 100) * 100,
               },
             ] as Bonus[])
@@ -457,7 +917,7 @@ function generateDeal(tier: ArtistDef["tier"]): GeneratedDeal {
           ? ([
               {
                 type: "sellout" as const,
-                label: `+$${Math.round(baseGuarantee * 0.15 / 100) * 100} on sellout`,
+                label: `+$${Math.round((baseGuarantee * 0.15) / 100) * 100} on sellout`,
                 amount: Math.round((baseGuarantee * 0.15) / 100) * 100,
               },
             ] as Bonus[])
@@ -542,7 +1002,11 @@ function generateSellThrough(tier: ArtistDef["tier"]): number {
 
 // -------- Comps generation --------
 
-function generateComps(showId: string, tier: ArtistDef["tier"], avgPrice: number) {
+function generateComps(
+  showId: string,
+  tier: ArtistDef["tier"],
+  avgPrice: number,
+) {
   type CompRow = typeof comps.$inferInsert;
   const result: CompRow[] = [];
   let i = 0;
@@ -565,7 +1029,12 @@ function generateComps(showId: string, tier: ArtistDef["tier"], avgPrice: number
   };
 
   // Artist guest list — scales with tier draw
-  const glCount = { A: rndInt(15, 28), B: rndInt(10, 20), C: rndInt(6, 14), D: rndInt(3, 10) }[tier];
+  const glCount = {
+    A: rndInt(15, 28),
+    B: rndInt(10, 20),
+    C: rndInt(6, 14),
+    D: rndInt(3, 10),
+  }[tier];
   add("artist_gl", glCount);
 
   // Label / management — only for bigger acts, mostly
@@ -592,7 +1061,11 @@ function generateComps(showId: string, tier: ArtistDef["tier"], avgPrice: number
       "promo",
       rndInt(4, 12),
       rnd() < 0.3, // sometimes promo comps DO count toward gross at face
-      choose(["Radio giveaway", "2-for-1 Tuesday promo", "Spotify pre-save campaign"]),
+      choose([
+        "Radio giveaway",
+        "2-for-1 Tuesday promo",
+        "Spotify pre-save campaign",
+      ]),
     );
   }
 
@@ -626,10 +1099,16 @@ function generateExpenses(showId: string) {
   add("lights", rndInt(150, 250));
   add("production", rndInt(180, 350));
   add("hospitality", rndInt(180, 480));
-  if (rnd() < 0.7) add("marketing", rndInt(150, 600), choose(["Spotify ad", "Instagram boost", "Local radio spot"]));
+  if (rnd() < 0.7)
+    add(
+      "marketing",
+      rndInt(150, 600),
+      choose(["Spotify ad", "Instagram boost", "Local radio spot"]),
+    );
   if (rnd() < 0.4) add("backline", rndInt(120, 280), "Backline rental");
   if (rnd() < 0.3) add("security", rndInt(80, 200));
-  if (rnd() < 0.15) add("hospitality", rndInt(50, 120), "Hospitality overage", true);
+  if (rnd() < 0.15)
+    add("hospitality", rndInt(50, 120), "Hospitality overage", true);
   return result;
 }
 
@@ -653,14 +1132,22 @@ function generateRecoups(
     result.push({
       id: `recoup_${showId}_${id++}`,
       category: "marketing",
-      label: choose(["Co-op marketing spend", "Pre-show ad spend", "Spotify ad recoup"]),
+      label: choose([
+        "Co-op marketing spend",
+        "Pre-show ad spend",
+        "Spotify ad recoup",
+      ]),
       amount,
       status: rnd() < 0.85 ? "agreed" : "disputed",
     });
   }
 
   // Hospitality overage — when hospitality exceeded the cap
-  if (hospitalityCap != null && hospitalityTotal > hospitalityCap && rnd() < 0.7) {
+  if (
+    hospitalityCap != null &&
+    hospitalityTotal > hospitalityCap &&
+    rnd() < 0.7
+  ) {
     const overage = Math.round(hospitalityTotal - hospitalityCap);
     if (overage >= 50) {
       result.push({
@@ -678,7 +1165,11 @@ function generateRecoups(
     result.push({
       id: `recoup_${showId}_${id++}`,
       category: "production_overage",
-      label: choose(["Sound: extra mic pkg added", "Lights: programmer add'l night", "Backline: drum riser"]),
+      label: choose([
+        "Sound: extra mic pkg added",
+        "Lights: programmer add'l night",
+        "Backline: drum riser",
+      ]),
       amount: rndInt(100, 400),
       status: rnd() < 0.6 ? "agreed" : "disputed",
     });
@@ -751,17 +1242,19 @@ function settlementTimestamps(stage: SettlementStage, showDate: Date) {
   // Show happened on showDate. Settlement starts as draft same night,
   // submitted next morning, reviewed within a day, signed within 2-3 days,
   // paid within 5-7 days. Disputes extend the timeline.
-  const ts: Partial<Record<
-    | "draftedAt"
-    | "submittedAt"
-    | "reviewStartedAt"
-    | "signedAt"
-    | "disputedAt"
-    | "revisedAt"
-    | "finalizedAt"
-    | "paidAt",
-    Date
-  >> = {};
+  const ts: Partial<
+    Record<
+      | "draftedAt"
+      | "submittedAt"
+      | "reviewStartedAt"
+      | "signedAt"
+      | "disputedAt"
+      | "revisedAt"
+      | "finalizedAt"
+      | "paidAt",
+      Date
+    >
+  > = {};
   const addHours = (base: Date, hrs: number) => {
     const d = new Date(base);
     d.setHours(d.getHours() + hrs);
@@ -818,11 +1311,17 @@ function computeSettlement(
     case "percentage_of_gross":
       return gross * (deal.percentage ?? 0);
     case "percentage_of_net": {
-      const cappedExpenses = Math.min(passThruExpenses, deal.expenseCap ?? Infinity);
+      const cappedExpenses = Math.min(
+        passThruExpenses,
+        deal.expenseCap ?? Infinity,
+      );
       return Math.max(0, (net - cappedExpenses) * (deal.percentage ?? 0));
     }
     case "vs": {
-      const cappedExpenses = Math.min(passThruExpenses, deal.expenseCap ?? Infinity);
+      const cappedExpenses = Math.min(
+        passThruExpenses,
+        deal.expenseCap ?? Infinity,
+      );
       const netAfterExpenses = Math.max(0, net - cappedExpenses);
       const pctPayout = netAfterExpenses * (deal.percentage ?? 0);
       const guarantee = deal.guaranteeAmount ?? 0;
@@ -837,7 +1336,10 @@ function computeSettlement(
       return base + (overrideGuarantee ? bonusPayout : 0);
     }
     case "door": {
-      const cappedExpenses = Math.min(passThruExpenses, deal.expenseCap ?? Infinity);
+      const cappedExpenses = Math.min(
+        passThruExpenses,
+        deal.expenseCap ?? Infinity,
+      );
       return Math.max(0, gross - cappedExpenses);
     }
   }
@@ -864,16 +1366,37 @@ async function main() {
   await db.delete(users);
   await db.delete(venues);
 
-  await db.insert(venues).values({ id: VENUE_ID, name: "The Crescent", capacity: VENUE_CAPACITY, city: "Nashville", state: "TN" });
+  await db
+    .insert(venues)
+    .values({
+      id: VENUE_ID,
+      name: "The Crescent",
+      capacity: VENUE_CAPACITY,
+      city: "Nashville",
+      state: "TN",
+    });
   await db.insert(users).values([
-    { id: MARIANA_ID, name: "Mariana Reyes", email: "mariana@thecrescentnashville.com", role: "booker", venueId: VENUE_ID },
-    { id: MARCUS_ID, name: "Marcus Holland", email: "marcus@thecrescentnashville.com", role: "gm", venueId: VENUE_ID },
+    {
+      id: MARIANA_ID,
+      name: "Mariana Reyes",
+      email: "mariana@thecrescentnashville.com",
+      role: "booker",
+      venueId: VENUE_ID,
+    },
+    {
+      id: MARCUS_ID,
+      name: "Marcus Holland",
+      email: "marcus@thecrescentnashville.com",
+      role: "gm",
+      venueId: VENUE_ID,
+    },
   ]);
   await db.insert(agencies).values(AGENCIES);
   await db.insert(agents).values(AGENT_DEFS);
 
   const artistAgentMap = new Map<string, string>();
-  for (const a of ARTIST_DEFS) artistAgentMap.set(a.id, pickAgentForArtist(a.tier));
+  for (const a of ARTIST_DEFS)
+    artistAgentMap.set(a.id, pickAgentForArtist(a.tier));
 
   await db.insert(artists).values(
     ARTIST_DEFS.map((a) => ({
@@ -895,7 +1418,10 @@ async function main() {
 
   // Track post-insert mutations for breadcrumbs that need to update artist
   // rows (already inserted earlier in main()).
-  const breadcrumbsToFinalize: { kind: "artist_priorshows"; artistId: string }[] = [];
+  const breadcrumbsToFinalize: {
+    kind: "artist_priorshows";
+    artistId: string;
+  }[] = [];
 
   const datePool: string[] = [];
   // 24 months back, 60 days forward. More density on weekends, but Sun/Mon
@@ -936,16 +1462,25 @@ async function main() {
     const showId = `show_${i.toString().padStart(4, "0")}`;
     const showDate = new Date(date);
     const isPast = showDate < TODAY;
-    const daysAgo = Math.floor((TODAY.getTime() - showDate.getTime()) / (1000 * 60 * 60 * 24));
+    const daysAgo = Math.floor(
+      (TODAY.getTime() - showDate.getTime()) / (1000 * 60 * 60 * 24),
+    );
 
-    const avgPrice = artist.tier === "A" ? 32 : artist.tier === "B" ? 26 : artist.tier === "C" ? 20 : 15;
+    const avgPrice =
+      artist.tier === "A"
+        ? 32
+        : artist.tier === "B"
+          ? 26
+          : artist.tier === "C"
+            ? 20
+            : 15;
 
     showsToInsert.push({
       id: showId,
       venueId: VENUE_ID,
       artistId: artist.id,
       date,
-      status: isPast ? "settled" : (rnd() < 0.6 ? "booked" : "advanced"),
+      status: isPast ? "settled" : rnd() < 0.6 ? "booked" : "advanced",
       doorsTime: choose(["19:00", "19:30", "20:00"]),
       setTime: choose(["20:30", "21:00", "21:30"]),
       roomConfig: weighted([
@@ -997,11 +1532,15 @@ async function main() {
       const showExpenses = generateExpenses(showId);
       expensesToInsert.push(...showExpenses);
 
-      const passThru = showExpenses.filter((e) => !e.absorbedByVenue).reduce((s, e) => s + e.amount, 0);
+      const passThru = showExpenses
+        .filter((e) => !e.absorbedByVenue)
+        .reduce((s, e) => s + e.amount, 0);
       const totalToArtist = computeSettlement(deal, gross, fees, passThru);
 
       const effectiveDaysAgo = isPast ? daysAgo : rndInt(3, 30);
-      const stage = isPast ? pickSettlementStage(daysAgo) : pickSettlementStage(effectiveDaysAgo);
+      const stage = isPast
+        ? pickSettlementStage(daysAgo)
+        : pickSettlementStage(effectiveDaysAgo);
       const ts = settlementTimestamps(stage, showDate);
 
       // Recoups for ~30% of settlements
@@ -1030,7 +1569,8 @@ async function main() {
         revisedAt: ts.revisedAt,
         finalizedAt: ts.finalizedAt,
         paidAt: ts.paidAt,
-        completedAt: ts.paidAt ?? ts.finalizedAt ?? ts.signedAt ?? new Date(date),
+        completedAt:
+          ts.paidAt ?? ts.finalizedAt ?? ts.signedAt ?? new Date(date),
         completedByUserId: MARIANA_ID,
         grossBoxOffice: gross,
         netBoxOffice: gross - fees,
@@ -1040,10 +1580,22 @@ async function main() {
         signoffText:
           stage === "draft" || stage === "submitted" || stage === "in_review"
             ? null
-            : choose(["OK. Good night.", "Looks good.", "👍", "ok wire monday", "Sign off."]),
-        notes: rnd() < 0.1
-          ? choose(["Hospitality $87 absorbed — over rider.", "Backline charge waived.", "Marketing recoup pre-deducted from gross.", "Comp tickets: 12. Revenue impact accepted."])
-          : null,
+            : choose([
+                "OK. Good night.",
+                "Looks good.",
+                "👍",
+                "ok wire monday",
+                "Sign off.",
+              ]),
+        notes:
+          rnd() < 0.1
+            ? choose([
+                "Hospitality $87 absorbed — over rider.",
+                "Backline charge waived.",
+                "Marketing recoup pre-deducted from gross.",
+                "Comp tickets: 12. Revenue impact accepted.",
+              ])
+            : null,
       });
     }
   }
@@ -1204,9 +1756,7 @@ async function main() {
 
   // BC8: Duplicate expense — same vendor, same amount, ~3 hours apart
   {
-    const target = pastSettlements[
-      Math.floor(pastSettlements.length * 0.4)
-    ];
+    const target = pastSettlements[Math.floor(pastSettlements.length * 0.4)];
     if (target) {
       const expenses = findExpenses(target.showId);
       const sound = expenses.find((e) => e.category === "sound");
@@ -1301,7 +1851,11 @@ async function main() {
         ? JSON.parse(stl.recoupsJson as string)
         : [];
       // Skip if already has a disputed marketing recoup (don't double-plant)
-      if (existing.some((r) => r.category === "marketing" && r.status === "disputed")) {
+      if (
+        existing.some(
+          (r) => r.category === "marketing" && r.status === "disputed",
+        )
+      ) {
         continue;
       }
 
@@ -1316,7 +1870,9 @@ async function main() {
       stl.recoupsJson = JSON.stringify(existing);
       planted++;
     }
-    console.log(`   BC12: Planted ${planted} Daniel Hwang marketing-recoup disputes`);
+    console.log(
+      `   BC12: Planted ${planted} Daniel Hwang marketing-recoup disputes`,
+    );
   }
 
   // -------- Inject the Coastal Spell March 14, 2025 dispute --------
@@ -1368,10 +1924,42 @@ async function main() {
   });
   // Comps for Coastal Spell — they were a draw, lots of GL
   compsToInsert.push(
-    { id: `comp_${coastalShowId}_0`, showId: coastalShowId, category: "artist_gl", count: 24, faceValue: 32, countsTowardGross: false, notes: null },
-    { id: `comp_${coastalShowId}_1`, showId: coastalShowId, category: "label", count: 6, faceValue: 32, countsTowardGross: false, notes: "Captured Tracks, A&R" },
-    { id: `comp_${coastalShowId}_2`, showId: coastalShowId, category: "press", count: 4, faceValue: 32, countsTowardGross: false, notes: null },
-    { id: `comp_${coastalShowId}_3`, showId: coastalShowId, category: "venue_staff", count: 6, faceValue: 32, countsTowardGross: false, notes: null },
+    {
+      id: `comp_${coastalShowId}_0`,
+      showId: coastalShowId,
+      category: "artist_gl",
+      count: 24,
+      faceValue: 32,
+      countsTowardGross: false,
+      notes: null,
+    },
+    {
+      id: `comp_${coastalShowId}_1`,
+      showId: coastalShowId,
+      category: "label",
+      count: 6,
+      faceValue: 32,
+      countsTowardGross: false,
+      notes: "Captured Tracks, A&R",
+    },
+    {
+      id: `comp_${coastalShowId}_2`,
+      showId: coastalShowId,
+      category: "press",
+      count: 4,
+      faceValue: 32,
+      countsTowardGross: false,
+      notes: null,
+    },
+    {
+      id: `comp_${coastalShowId}_3`,
+      showId: coastalShowId,
+      category: "venue_staff",
+      count: 6,
+      faceValue: 32,
+      countsTowardGross: false,
+      notes: null,
+    },
   );
   // Expenses — note marketing is now a regular expense; the disputed marketing
   // recoup is a separate line-item in recoups (where it conceptually belongs).
@@ -1431,14 +2019,19 @@ async function main() {
   // Bulk insert
   console.log(`   Inserting ${showsToInsert.length} shows…`);
   const chunkArr = <T>(arr: T[], size: number): T[][] =>
-    Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
+    Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+      arr.slice(i * size, i * size + size),
+    );
 
   for (const c of chunkArr(showsToInsert, 50)) await db.insert(shows).values(c);
   for (const c of chunkArr(dealsToInsert, 50)) await db.insert(deals).values(c);
-  for (const c of chunkArr(ticketSalesToInsert, 50)) await db.insert(ticketSales).values(c);
+  for (const c of chunkArr(ticketSalesToInsert, 50))
+    await db.insert(ticketSales).values(c);
   for (const c of chunkArr(compsToInsert, 50)) await db.insert(comps).values(c);
-  for (const c of chunkArr(expensesToInsert, 50)) await db.insert(expenses).values(c);
-  for (const c of chunkArr(settlementsToInsert, 50)) await db.insert(settlements).values(c);
+  for (const c of chunkArr(expensesToInsert, 50))
+    await db.insert(expenses).values(c);
+  for (const c of chunkArr(settlementsToInsert, 50))
+    await db.insert(settlements).values(c);
 
   // BC11 finalization: artist's priorShowCount left stale despite many shows
   for (const bc of breadcrumbsToFinalize) {
@@ -1453,7 +2046,8 @@ async function main() {
   // Stats
   const stageCounts: Record<string, number> = {};
   for (const s of settlementsToInsert) {
-    stageCounts[s.status as string] = (stageCounts[s.status as string] ?? 0) + 1;
+    stageCounts[s.status as string] =
+      (stageCounts[s.status as string] ?? 0) + 1;
   }
   const recoupCount = settlementsToInsert.filter((s) => s.recoupsJson).length;
   const bonusCount = dealsToInsert.filter((d) => d.bonusesJson).length;
@@ -1464,14 +2058,29 @@ async function main() {
   console.log(`   ${ARTIST_DEFS.length} artists`);
   console.log(`   ${showsToInsert.length} shows`);
   console.log(`   ${ticketSalesToInsert.length} ticket sale records`);
-  console.log(`   ${compsToInsert.length} comp records (${compsToInsert.reduce((s, c) => s + (c.count ?? 0), 0)} comp tickets total)`);
+  console.log(
+    `   ${compsToInsert.length} comp records (${compsToInsert.reduce((s, c) => s + (c.count ?? 0), 0)} comp tickets total)`,
+  );
   console.log(`   ${expensesToInsert.length} expenses`);
-  console.log(`   ${settlementsToInsert.length} settlements (${Object.entries(stageCounts).map(([k, v]) => `${k}:${v}`).join(", ")})`);
+  console.log(
+    `   ${settlementsToInsert.length} settlements (${Object.entries(stageCounts)
+      .map(([k, v]) => `${k}:${v}`)
+      .join(", ")})`,
+  );
   console.log(`   ${recoupCount} settlements have recoup line items`);
   console.log(`   ${bonusCount} deals have structured bonuses`);
-  console.log(`   1 named dispute (Coastal Spell, March 2025) injected for narrative continuity`);
+  console.log(
+    `   1 named dispute (Coastal Spell, March 2025) injected for narrative continuity`,
+  );
 }
 
 main()
-  .then(() => { client.close(); process.exit(0); })
-  .catch((err) => { console.error(err); client.close(); process.exit(1); });
+  .then(() => {
+    client.close();
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error(err);
+    client.close();
+    process.exit(1);
+  });

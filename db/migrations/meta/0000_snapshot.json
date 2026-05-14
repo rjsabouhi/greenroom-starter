@@ -80,12 +80,8 @@
           "name": "agents_agency_id_agencies_id_fk",
           "tableFrom": "agents",
           "tableTo": "agencies",
-          "columnsFrom": [
-            "agency_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["agency_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -147,12 +143,8 @@
           "name": "artists_agent_id_agents_id_fk",
           "tableFrom": "artists",
           "tableTo": "agents",
-          "columnsFrom": [
-            "agent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["agent_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -221,12 +213,8 @@
           "name": "comps_show_id_shows_id_fk",
           "tableFrom": "comps",
           "tableTo": "shows",
-          "columnsFrom": [
-            "show_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["show_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -319,9 +307,7 @@
       "indexes": {
         "deals_show_id_unique": {
           "name": "deals_show_id_unique",
-          "columns": [
-            "show_id"
-          ],
+          "columns": ["show_id"],
           "isUnique": true
         }
       },
@@ -330,12 +316,8 @@
           "name": "deals_show_id_shows_id_fk",
           "tableFrom": "deals",
           "tableTo": "shows",
-          "columnsFrom": [
-            "show_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["show_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -419,12 +401,8 @@
           "name": "expenses_show_id_shows_id_fk",
           "tableFrom": "expenses",
           "tableTo": "shows",
-          "columnsFrom": [
-            "show_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["show_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -432,12 +410,8 @@
           "name": "expenses_entered_by_user_id_users_id_fk",
           "tableFrom": "expenses",
           "tableTo": "users",
-          "columnsFrom": [
-            "entered_by_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["entered_by_user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -601,9 +575,7 @@
       "indexes": {
         "settlements_show_id_unique": {
           "name": "settlements_show_id_unique",
-          "columns": [
-            "show_id"
-          ],
+          "columns": ["show_id"],
           "isUnique": true
         }
       },
@@ -612,12 +584,8 @@
           "name": "settlements_show_id_shows_id_fk",
           "tableFrom": "settlements",
           "tableTo": "shows",
-          "columnsFrom": [
-            "show_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["show_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -625,12 +593,8 @@
           "name": "settlements_completed_by_user_id_users_id_fk",
           "tableFrom": "settlements",
           "tableTo": "users",
-          "columnsFrom": [
-            "completed_by_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["completed_by_user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -728,12 +692,8 @@
           "name": "shows_venue_id_venues_id_fk",
           "tableFrom": "shows",
           "tableTo": "venues",
-          "columnsFrom": [
-            "venue_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["venue_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -741,12 +701,8 @@
           "name": "shows_artist_id_artists_id_fk",
           "tableFrom": "shows",
           "tableTo": "artists",
-          "columnsFrom": [
-            "artist_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["artist_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -754,12 +710,8 @@
           "name": "shows_opener_artist_id_artists_id_fk",
           "tableFrom": "shows",
           "tableTo": "artists",
-          "columnsFrom": [
-            "opener_artist_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["opener_artist_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -820,12 +772,8 @@
           "name": "ticket_sales_show_id_shows_id_fk",
           "tableFrom": "ticket_sales",
           "tableTo": "shows",
-          "columnsFrom": [
-            "show_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["show_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -876,9 +824,7 @@
       "indexes": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },

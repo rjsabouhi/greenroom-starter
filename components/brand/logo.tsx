@@ -30,7 +30,14 @@ export function Logomark({
       aria-label="Greenroom"
     >
       <defs>
-        <linearGradient id="gr-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="gr-bg"
+          x1="0"
+          y1="0"
+          x2="40"
+          y2="40"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0" stopColor="#059669" />
           <stop offset="1" stopColor="#047857" />
         </linearGradient>

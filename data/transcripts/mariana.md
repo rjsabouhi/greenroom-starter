@@ -38,7 +38,7 @@ This is a lightly cleaned-up transcript. Filler words removed; substantive conte
 
 **Anil:** Tell me about the conversation with the tour manager.
 
-**Mariana:** Yeah. So the actual settlement is a *conversation*, not a calculation. The math is the easy part. The hard part is the back-and-forth. They'll point at hospitality and say "wait, what's that, that's over the cap" and I have to explain that yes, the whiskey ran over but I'm absorbing the difference. Or they'll argue that one of the production charges shouldn't have been their cost. Or they'll question why CC fees are coming out of net and not gross. Sometimes the conversation is fast — five minutes. Sometimes it's an hour.
+**Mariana:** Yeah. So the actual settlement is a _conversation_, not a calculation. The math is the easy part. The hard part is the back-and-forth. They'll point at hospitality and say "wait, what's that, that's over the cap" and I have to explain that yes, the whiskey ran over but I'm absorbing the difference. Or they'll argue that one of the production charges shouldn't have been their cost. Or they'll question why CC fees are coming out of net and not gross. Sometimes the conversation is fast — five minutes. Sometimes it's an hour.
 
 **Anil:** What makes the long conversations long?
 

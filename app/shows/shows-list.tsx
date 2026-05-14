@@ -35,7 +35,8 @@ const lifecycleStatusVariants: Record<
 function getAccentColor(row: ShowRow): string {
   if (row.settlement) {
     const s = row.settlement.status;
-    if (s === "paid" || s === "finalized" || s === "signed") return "bg-brand-500";
+    if (s === "paid" || s === "finalized" || s === "signed")
+      return "bg-brand-500";
     if (s === "disputed") return "bg-rose-500";
     if (s === "revised") return "bg-amber-500";
     if (s === "submitted" || s === "in_review") return "bg-sky-400";
@@ -90,9 +91,7 @@ export function ShowsList({ rows }: { rows: ShowRow[] }) {
         <div className="py-20 text-center">
           <Calendar className="h-8 w-8 text-ink-200 mx-auto mb-3" />
           <div className="text-[14px] text-ink-500">
-            {query
-              ? `No shows matching "${query}"`
-              : "No shows yet."}
+            {query ? `No shows matching "${query}"` : "No shows yet."}
           </div>
           {query && (
             <button
@@ -189,9 +188,7 @@ function ShowListRow({ row }: { row: ShowRow }) {
         </div>
 
         <div className="flex justify-end">
-          {settlement ? (
-            <SettlementPill status={settlement.status} />
-          ) : null}
+          {settlement ? <SettlementPill status={settlement.status} /> : null}
         </div>
 
         <ArrowUpRight className="h-3.5 w-3.5 text-ink-200 group-hover:text-ink-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-150" />
