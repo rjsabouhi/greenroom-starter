@@ -275,7 +275,8 @@ export function buildReadinessLedger(input: LedgerInput): ReadinessLedger {
       id: "missing-guarantee",
       severity: "critical",
       title: "Vs deal is missing guarantee amount",
-      detail: "The guarantee is required to compare against the percentage side.",
+      detail:
+        "The guarantee is required to compare against the percentage side.",
       recommendedAction: "Confirm and enter the guarantee before settlement.",
     });
   }

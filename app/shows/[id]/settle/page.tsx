@@ -95,10 +95,7 @@ export default async function SettlePage({
     settlement?.status === "disputed" ||
     settlement?.status === "revised" ||
     !!settlement?.disputedAt;
-  const disputedRecoupValue = disputedRecoups.reduce(
-    (s, r) => s + r.amount,
-    0,
-  );
+  const disputedRecoupValue = disputedRecoups.reduce((s, r) => s + r.amount, 0);
 
   return (
     <div
@@ -564,9 +561,7 @@ function ReadyToSettleWalkthrough({
     projection.low != null && projection.high != null
       ? projection.low === projection.high
         ? formatMoney(projection.high)
-        : `${formatMoney(projection.low)}–${formatMoney(
-            projection.high,
-          )}`
+        : `${formatMoney(projection.low)}–${formatMoney(projection.high)}`
       : "Needs review";
 
   return (

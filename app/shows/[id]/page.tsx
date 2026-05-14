@@ -76,32 +76,31 @@ export default async function ShowDetailPage({
     .reduce((s, c) => s + c.count, 0);
 
   const bonuses = deal ? parseBonuses(deal) : [];
-const readinessLedger = deal
-  ? buildReadinessLedger({
-      deal,
-      ticketSales,
-      expenses,
-      recoups,
-      settlement,
-      comps,
-    })
-  : null;
+  const readinessLedger = deal
+    ? buildReadinessLedger({
+        deal,
+        ticketSales,
+        expenses,
+        recoups,
+        settlement,
+        comps,
+      })
+    : null;
 
-const isDisputed = settlement?.status === "disputed";
+  const isDisputed = settlement?.status === "disputed";
 
-const supportedCleanDeal =
-  deal?.dealType === "flat" || deal?.dealType === "percentage_of_gross";
+  const supportedCleanDeal =
+    deal?.dealType === "flat" || deal?.dealType === "percentage_of_gross";
 
-const hasSettlementTrustIssue =
-  settlement?.status === "disputed" ||
-  settlement?.status === "revised" ||
-  !!settlement?.disputedAt ||
-  recoups.some((r) => r.status === "disputed") ||
-  compsCountingTowardGross > 0;
+  const hasSettlementTrustIssue =
+    settlement?.status === "disputed" ||
+    settlement?.status === "revised" ||
+    !!settlement?.disputedAt ||
+    recoups.some((r) => r.status === "disputed") ||
+    compsCountingTowardGross > 0;
 
-const shouldShowReadinessCard =
-  !!readinessLedger && (!supportedCleanDeal || hasSettlementTrustIssue);
-
+  const shouldShowReadinessCard =
+    !!readinessLedger && (!supportedCleanDeal || hasSettlementTrustIssue);
 
   return (
     <div className="max-w-7xl">
@@ -193,12 +192,12 @@ const shouldShowReadinessCard =
         )}
 
         {shouldShowReadinessCard && readinessLedger && (
-  <SettlementReadinessCard
-    ledger={readinessLedger}
-    showId={show.id}
-    dealType={deal?.dealType ?? null}
-  />
-)}
+          <SettlementReadinessCard
+            ledger={readinessLedger}
+            showId={show.id}
+            dealType={deal?.dealType ?? null}
+          />
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
           {/* Deal terms */}
@@ -359,9 +358,7 @@ const shouldShowReadinessCard =
             <CardContent>
               <div className="space-y-3">
                 <div>
-                  <div className="eyebrow text-[10px] text-ink-400">
-                    Gross
-                  </div>
+                  <div className="eyebrow text-[10px] text-ink-400">Gross</div>
                   <div className="text-[28px] font-mono tabular font-semibold text-ink-900 mt-1 leading-none">
                     {formatMoneyCompact(grossSoFar)}
                   </div>
@@ -398,8 +395,8 @@ const shouldShowReadinessCard =
               <div>
                 <CardTitle>Comps</CardTitle>
                 <CardDescription>
-                  {totalCompCount} comp tickets across {comps.length}{" "}
-                  categor{comps.length === 1 ? "y" : "ies"}.
+                  {totalCompCount} comp tickets across {comps.length} categor
+                  {comps.length === 1 ? "y" : "ies"}.
                   {compsCountingTowardGross > 0 && (
                     <>
                       {" "}
@@ -571,7 +568,16 @@ function SettlementReadinessCard({
   const topIssue = ledger.topIssues[0];
 
   return (
-    <Card className="mt-5" accent={ledger.risk === "critical" ? "rose" : ledger.risk === "high" ? "amber" : "brand"}>
+    <Card
+      className="mt-5"
+      accent={
+        ledger.risk === "critical"
+          ? "rose"
+          : ledger.risk === "high"
+            ? "amber"
+            : "brand"
+      }
+    >
       <CardHeader>
         <div>
           <CardTitle>Settlement readiness</CardTitle>
