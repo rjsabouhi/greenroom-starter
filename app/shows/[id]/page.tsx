@@ -19,6 +19,7 @@ import {
 import { StatusBadge, DealTypeBadge, PlainBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { parseBonuses } from "@/lib/dealMath";
+import { buildReadinessLedger } from "@/lib/readinessLedger";
 import {
   formatMoney,
   formatMoneyCompact,
@@ -56,6 +57,7 @@ export default async function ShowDetailPage({
     ticketSales,
     expenses,
     comps,
+    recoups,
   } = data;
 
   const grossSoFar = ticketSales.reduce((sum, t) => sum + t.gross, 0);
@@ -74,13 +76,43 @@ export default async function ShowDetailPage({
     .reduce((s, c) => s + c.count, 0);
 
   const bonuses = deal ? parseBonuses(deal) : [];
+const readinessLedger = deal
+  ? buildReadinessLedger({
+      deal,
+      ticketSales,
+      expenses,
+      recoups,
+      settlement,
+      comps,
+    })
+  : null;
 
-  const isDisputed = settlement?.status === "disputed";
+const isDisputed = settlement?.status === "disputed";
+
+const supportedCleanDeal =
+  deal?.dealType === "flat" || deal?.dealType === "percentage_of_gross";
+
+const hasSettlementTrustIssue =
+  settlement?.status === "disputed" ||
+  settlement?.status === "revised" ||
+  !!settlement?.disputedAt ||
+  recoups.some((r) => r.status === "disputed") ||
+  compsCountingTowardGross > 0;
+
+const shouldShowReadinessCard =
+  !!readinessLedger && (!supportedCleanDeal || hasSettlementTrustIssue);
+
 
   return (
     <div className="max-w-7xl">
       {/* Poster header */}
-      <div className={`px-12 pt-10 pb-14 ${isDisputed ? "bg-gradient-to-b from-rose-50/40 to-canvas" : "bg-gradient-to-b from-brand-50/30 to-canvas"}`}>
+      <div
+        className={`px-12 pt-10 pb-14 ${
+          isDisputed
+            ? "bg-gradient-to-b from-rose-50/40 to-canvas"
+            : "bg-gradient-to-b from-brand-50/30 to-canvas"
+        }`}
+      >
         <Link
           href="/shows"
           className="inline-flex items-center gap-1 text-[12px] text-ink-400 hover:text-ink-900 mb-8 transition-colors"
@@ -93,9 +125,7 @@ export default async function ShowDetailPage({
             <div className="flex items-center gap-1.5 mb-4">
               <StatusBadge status={show.status} />
               {deal && <DealTypeBadge type={deal.dealType} />}
-              {isDisputed && (
-                <PlainBadge variant="rose">Disputed</PlainBadge>
-              )}
+              {isDisputed && <PlainBadge variant="rose">Disputed</PlainBadge>}
               {bonuses.length > 0 && (
                 <PlainBadge variant="brand">
                   {bonuses.length} bonus{bonuses.length === 1 ? "" : "es"}
@@ -109,7 +139,9 @@ export default async function ShowDetailPage({
               {artist?.name ?? "—"}
             </h1>
             <div className="text-[14px] text-ink-400 mt-3 flex items-center gap-2">
-              <span className="text-ink-600 font-medium">{formatShowDateFull(show.date)}</span>
+              <span className="text-ink-600 font-medium">
+                {formatShowDateFull(show.date)}
+              </span>
               <span className="text-ink-300">·</span>
               <span>{relativeShowDate(show.date)}</span>
               <span className="text-ink-200">·</span>
@@ -131,9 +163,16 @@ export default async function ShowDetailPage({
         <div className="flex items-baseline gap-10 mt-8 pt-5 border-t border-ink-200/40">
           <MiniStat label="Gross" value={formatMoneyCompact(grossSoFar)} />
           <MiniStat label="Tickets" value={String(totalTickets)} />
-          <MiniStat label="Expenses" value={formatMoneyCompact(totalExpenses)} />
+          <MiniStat
+            label="Expenses"
+            value={formatMoneyCompact(totalExpenses)}
+          />
           {settlement?.totalToArtist != null && (
-            <MiniStat label="To artist" value={formatMoneyCompact(settlement.totalToArtist)} accent />
+            <MiniStat
+              label="To artist"
+              value={formatMoneyCompact(settlement.totalToArtist)}
+              accent
+            />
           )}
         </div>
       </div>
@@ -153,15 +192,23 @@ export default async function ShowDetailPage({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-2">
+        {shouldShowReadinessCard && readinessLedger && (
+  <SettlementReadinessCard
+    ledger={readinessLedger}
+    showId={show.id}
+    dealType={deal?.dealType ?? null}
+  />
+)}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
           {/* Deal terms */}
           <Card className="md:col-span-2">
             <CardHeader>
               <div>
                 <CardTitle>Deal terms</CardTitle>
                 <CardDescription>
-                  What was negotiated. Mariana enters this from the email
-                  thread with the agent.
+                  What was negotiated. Mariana enters this from the email thread
+                  with the agent.
                 </CardDescription>
               </div>
               {deal && <DealTypeBadge type={deal.dealType} />}
@@ -184,7 +231,11 @@ export default async function ShowDetailPage({
                       mono
                       value={
                         deal.percentage != null
-                          ? `${(deal.percentage * 100).toFixed(0)}% ${deal.percentageBasis ? `of ${deal.percentageBasis}` : ""}`
+                          ? `${(deal.percentage * 100).toFixed(0)}% ${
+                              deal.percentageBasis
+                                ? `of ${deal.percentageBasis}`
+                                : ""
+                            }`
                           : "—"
                       }
                     />
@@ -232,8 +283,8 @@ export default async function ShowDetailPage({
                         <code className="font-mono text-[10px] bg-white/80 px-1 py-0.5 rounded ring-1 ring-ink-200/40">
                           bonuses_json
                         </code>
-                        . The in-app tool only reads structured bonuses — anything
-                        in the prose below is invisible to it.
+                        . The in-app tool only reads structured bonuses —
+                        anything in the prose below is invisible to it.
                       </div>
                     </div>
                   )}
@@ -243,7 +294,10 @@ export default async function ShowDetailPage({
                       <div className="eyebrow text-[10px] text-ink-500 mb-2">
                         Deal notes (free text — what Mariana actually trusts)
                       </div>
-                      <div className="text-[13px] text-ink-800 bg-canvas-soft rounded-lg p-4 ring-1 ring-ink-200/50 leading-relaxed font-[450]" style={{ fontStyle: "italic" }}>
+                      <div
+                        className="text-[13px] text-ink-800 bg-canvas-soft rounded-lg p-4 ring-1 ring-ink-200/50 leading-relaxed font-[450]"
+                        style={{ fontStyle: "italic" }}
+                      >
                         {deal.dealNotesFreetext}
                       </div>
                     </div>
@@ -305,7 +359,9 @@ export default async function ShowDetailPage({
             <CardContent>
               <div className="space-y-3">
                 <div>
-                  <div className="eyebrow text-[10px] text-ink-400">Gross</div>
+                  <div className="eyebrow text-[10px] text-ink-400">
+                    Gross
+                  </div>
                   <div className="text-[28px] font-mono tabular font-semibold text-ink-900 mt-1 leading-none">
                     {formatMoneyCompact(grossSoFar)}
                   </div>
@@ -354,9 +410,7 @@ export default async function ShowDetailPage({
                   )}
                 </CardDescription>
               </div>
-              <PlainBadge variant="default">
-                {totalCompCount} total
-              </PlainBadge>
+              <PlainBadge variant="default">{totalCompCount} total</PlainBadge>
             </CardHeader>
             <CardContent>
               {comps.length === 0 ? (
@@ -367,10 +421,18 @@ export default async function ShowDetailPage({
                 <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left border-b border-ink-100/80">
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">Category</th>
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">Count</th>
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">Face value</th>
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">Counts toward gross?</th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">
+                        Category
+                      </th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">
+                        Count
+                      </th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">
+                        Face value
+                      </th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">
+                        Counts toward gross?
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-ink-100/60">
@@ -379,16 +441,22 @@ export default async function ShowDetailPage({
                         <td className="py-2.5">
                           {COMP_LABELS[c.category] ?? c.category}
                           {c.notes && (
-                            <span className="text-ink-400 ml-1">· {c.notes}</span>
+                            <span className="text-ink-400 ml-1">
+                              · {c.notes}
+                            </span>
                           )}
                         </td>
-                        <td className="py-2.5 text-right font-mono tabular">{c.count}</td>
+                        <td className="py-2.5 text-right font-mono tabular">
+                          {c.count}
+                        </td>
                         <td className="py-2.5 text-right font-mono tabular text-ink-500">
                           {formatMoney(c.faceValue * c.count)}
                         </td>
                         <td className="py-2.5 text-right">
                           {c.countsTowardGross ? (
-                            <span className="text-amber-700 font-medium">Yes</span>
+                            <span className="text-amber-700 font-medium">
+                              Yes
+                            </span>
                           ) : (
                             <span className="text-ink-400">No</span>
                           )}
@@ -425,9 +493,15 @@ export default async function ShowDetailPage({
                 <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left border-b border-ink-100/80">
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">Category</th>
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">Description</th>
-                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">Amount</th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">
+                        Category
+                      </th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold">
+                        Description
+                      </th>
+                      <th className="py-2 eyebrow text-[10px] text-ink-400 font-semibold text-right">
+                        Amount
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-ink-100/60">
@@ -436,16 +510,26 @@ export default async function ShowDetailPage({
                         <td className="py-2.5 capitalize">
                           {e.category}
                           {e.absorbedByVenue && (
-                            <PlainBadge variant="amber" className="ml-2">absorbed</PlainBadge>
+                            <PlainBadge variant="amber" className="ml-2">
+                              absorbed
+                            </PlainBadge>
                           )}
                         </td>
-                        <td className="py-2.5 text-ink-500">{e.description ?? "—"}</td>
-                        <td className="py-2.5 text-right font-mono tabular">{formatMoney(e.amount)}</td>
+                        <td className="py-2.5 text-ink-500">
+                          {e.description ?? "—"}
+                        </td>
+                        <td className="py-2.5 text-right font-mono tabular">
+                          {formatMoney(e.amount)}
+                        </td>
                       </tr>
                     ))}
                     <tr className="font-medium">
-                      <td className="py-3" colSpan={2}>Total (passed through)</td>
-                      <td className="py-3 text-right font-mono tabular">{formatMoney(totalExpenses)}</td>
+                      <td className="py-3" colSpan={2}>
+                        Total (passed through)
+                      </td>
+                      <td className="py-3 text-right font-mono tabular">
+                        {formatMoney(totalExpenses)}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -455,6 +539,128 @@ export default async function ShowDetailPage({
         </div>
       </div>
     </div>
+  );
+}
+
+function SettlementReadinessCard({
+  ledger,
+  showId,
+  dealType,
+}: {
+  ledger: ReturnType<typeof buildReadinessLedger>;
+  showId: string;
+  dealType: string | null;
+}) {
+  const riskVariant =
+    ledger.risk === "critical"
+      ? "rose"
+      : ledger.risk === "high"
+        ? "amber"
+        : ledger.risk === "medium"
+          ? "sky"
+          : "brand";
+
+  const projection = ledger.projection;
+  const payoutRange =
+    projection.low != null && projection.high != null
+      ? projection.low === projection.high
+        ? formatMoney(projection.high)
+        : `${formatMoney(projection.low)}–${formatMoney(projection.high)}`
+      : "Needs review";
+
+  const topIssue = ledger.topIssues[0];
+
+  return (
+    <Card className="mt-5" accent={ledger.risk === "critical" ? "rose" : ledger.risk === "high" ? "amber" : "brand"}>
+      <CardHeader>
+        <div>
+          <CardTitle>Settlement readiness</CardTitle>
+          <CardDescription>
+            A live readiness layer that asks whether this show is ready to
+            settle cleanly before Mariana reaches the final conversation.
+          </CardDescription>
+        </div>
+        <PlainBadge variant={riskVariant}>
+          {ledger.risk.toUpperCase()} · {ledger.score}%
+        </PlainBadge>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+          <Field label="Mode" value={ledger.mode} />
+          <Field label="Deal" value={dealType ?? "—"} />
+          <Field label="Projected payout" mono value={payoutRange} />
+          <Field
+            label="Payout swing"
+            mono
+            value={formatMoney(projection.swing)}
+          />
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-4">
+          <div className="rounded-lg bg-canvas-soft ring-1 ring-ink-200/60 p-4">
+            <div className="eyebrow text-[10px] text-ink-500 mb-2">
+              Next best action
+            </div>
+            <div className="text-[13px] text-ink-900 leading-relaxed">
+              {ledger.nextBestAction}
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-ink-200/70 bg-white p-4">
+            <div className="eyebrow text-[10px] text-ink-500 mb-2">
+              Top readiness issue
+            </div>
+            {topIssue ? (
+              <>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-[13px] font-medium text-ink-900">
+                    {topIssue.title}
+                  </div>
+                  <PlainBadge
+                    variant={
+                      topIssue.severity === "critical"
+                        ? "rose"
+                        : topIssue.severity === "high"
+                          ? "amber"
+                          : topIssue.severity === "medium"
+                            ? "sky"
+                            : "default"
+                    }
+                  >
+                    {topIssue.severity}
+                  </PlainBadge>
+                </div>
+                <div className="text-[12px] text-ink-500 leading-relaxed mt-1.5">
+                  {topIssue.detail}
+                </div>
+              </>
+            ) : (
+              <div className="text-[13px] text-ink-500">
+                No blocking issue detected yet.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-5 flex items-center justify-between gap-4 rounded-lg border border-brand-200/70 bg-brand-50/40 p-4">
+          <div>
+            <div className="text-[13px] font-medium text-ink-900">
+              Open the settlement walkthrough
+            </div>
+            <div className="text-[12px] text-ink-500 mt-1 leading-relaxed">
+              The settlement page turns this readiness state into a traceable
+              payout explanation and tour-manager walkthrough.
+            </div>
+          </div>
+          <Link href={`/shows/${showId}/settle`} className="shrink-0">
+            <Button variant="brand">
+              <FileSpreadsheet className="h-4 w-4" />
+              View settlement
+            </Button>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -470,7 +676,11 @@ function MiniStat({
   return (
     <div>
       <div className="eyebrow text-[9px] text-ink-400">{label}</div>
-      <div className={`text-[18px] font-mono tabular font-semibold mt-0.5 leading-none ${accent ? "text-brand-700" : "text-ink-900"}`}>
+      <div
+        className={`text-[18px] font-mono tabular font-semibold mt-0.5 leading-none ${
+          accent ? "text-brand-700" : "text-ink-900"
+        }`}
+      >
         {value}
       </div>
     </div>

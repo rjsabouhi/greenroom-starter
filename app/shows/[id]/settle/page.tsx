@@ -23,10 +23,8 @@ import {
 } from "@/components/ui/card";
 import { StatusBadge, DealTypeBadge, PlainBadge } from "@/components/ui/badge";
 import { calculateSettlement } from "@/lib/dealMath";
-import {
-  formatMoney,
-  formatShowDateFull,
-} from "@/lib/format";
+import { buildReadinessLedger } from "@/lib/readinessLedger";
+import { formatMoney, formatShowDateFull } from "@/lib/format";
 import type { Settlement, Recoup } from "@/db/schema";
 import { Logomark } from "@/components/brand/logo";
 
@@ -48,8 +46,16 @@ export default async function SettlePage({
   const data = await getShowById(id);
   if (!data) notFound();
 
-  const { show, artist, deal, ticketSales, expenses, settlement, recoups } =
-    data;
+  const {
+    show,
+    artist,
+    deal,
+    ticketSales,
+    expenses,
+    settlement,
+    recoups,
+    comps,
+  } = data;
 
   if (!deal) {
     return (
@@ -68,18 +74,40 @@ export default async function SettlePage({
     expenses,
     venueCapacity: data.venue?.capacity ?? undefined,
   });
+
   const grossSoFar = ticketSales.reduce((sum, t) => sum + t.gross, 0);
   const totalFees = ticketSales.reduce((sum, t) => sum + t.fees, 0);
   const totalExpenses = expenses
     .filter((e) => !e.absorbedByVenue)
     .reduce((sum, e) => sum + e.amount, 0);
 
+  const readinessLedger = buildReadinessLedger({
+    deal,
+    ticketSales,
+    expenses,
+    recoups,
+    settlement,
+    comps,
+  });
+
   const disputedRecoups = recoups.filter((r) => r.status === "disputed");
-  const isDisputed = settlement?.status === "disputed" || settlement?.status === "revised" || !!settlement?.disputedAt;
-  const disputedRecoupValue = disputedRecoups.reduce((s, r) => s + r.amount, 0);
+  const isDisputed =
+    settlement?.status === "disputed" ||
+    settlement?.status === "revised" ||
+    !!settlement?.disputedAt;
+  const disputedRecoupValue = disputedRecoups.reduce(
+    (s, r) => s + r.amount,
+    0,
+  );
 
   return (
-    <div className={`px-12 py-10 max-w-7xl ${isDisputed ? "bg-gradient-to-b from-rose-50/30 via-canvas to-canvas" : ""}`}>
+    <div
+      className={`px-12 py-10 max-w-7xl ${
+        isDisputed
+          ? "bg-gradient-to-b from-rose-50/30 via-canvas to-canvas"
+          : ""
+      }`}
+    >
       <BackLink showId={show.id} />
 
       <div className="mb-20">
@@ -99,7 +127,10 @@ export default async function SettlePage({
             <PlainBadge variant="default">Voided</PlainBadge>
           )}
         </div>
-        <h1 className="font-display text-[48px] font-medium text-ink-900 leading-[1.05]" style={{ letterSpacing: "-0.02em", fontOpticalSizing: "auto" }}>
+        <h1
+          className="font-display text-[48px] font-medium text-ink-900 leading-[1.05]"
+          style={{ letterSpacing: "-0.02em", fontOpticalSizing: "auto" }}
+        >
           Settlement · {artist?.name}
         </h1>
         <div className="text-[14px] text-ink-400 mt-3">
@@ -107,23 +138,28 @@ export default async function SettlePage({
         </div>
       </div>
 
-      {/* Disputed callout */}
       {isDisputed && disputedRecoupValue > 0 && (
         <div className="mb-8 rounded-lg border border-rose-200/60 bg-rose-50/40 p-5 flex gap-3">
           <AlertTriangle className="h-4 w-4 text-rose-700 mt-0.5 shrink-0" />
           <div>
             <div className="text-[13px] font-semibold text-rose-800">
-              {disputedRecoups.length} recoup{disputedRecoups.length === 1 ? "" : "s"} in dispute · {formatMoney(disputedRecoupValue)} contested
+              {disputedRecoups.length} recoup
+              {disputedRecoups.length === 1 ? "" : "s"} in dispute ·{" "}
+              {formatMoney(disputedRecoupValue)} contested
             </div>
             <p className="text-[12.5px] text-ink-600 mt-1 leading-relaxed">
-              The artist team has flagged recoup line items. This settlement cannot be finalized until the dispute is resolved.
+              The artist team has flagged recoup line items. This settlement
+              cannot be finalized until the dispute is resolved.
             </p>
           </div>
         </div>
       )}
 
       {settlement && (
-        <LifecycleBar settlement={settlement} disputedRecoups={disputedRecoups.length} />
+        <LifecycleBar
+          settlement={settlement}
+          disputedRecoups={disputedRecoups.length}
+        />
       )}
 
       <div className="space-y-6 mt-6">
@@ -137,6 +173,7 @@ export default async function SettlePage({
             totalExpenses={totalExpenses}
             ticketCount={ticketSales.reduce((s, t) => s + (t.qty ?? 0), 0)}
             expenseRowCount={expenses.length}
+            ledger={readinessLedger}
           />
         ) : (
           <SupportedSettlement calc={calc} existingSettlement={settlement} />
@@ -153,7 +190,10 @@ export default async function SettlePage({
         <div className="flex gap-4 items-start max-w-3xl">
           <Logomark size={40} className="shrink-0" />
           <div>
-            <h2 className="font-display text-[20px] font-medium text-ink-900 mb-2" style={{ letterSpacing: "-0.02em" }}>
+            <h2
+              className="font-display text-[20px] font-medium text-ink-900 mb-2"
+              style={{ letterSpacing: "-0.02em" }}
+            >
               You&apos;re looking at the seam this case study is about.
             </h2>
             <p className="text-[13px] text-ink-500 leading-relaxed">
@@ -364,6 +404,7 @@ function UnsupportedDeal({
   totalExpenses,
   ticketCount,
   expenseRowCount,
+  ledger,
 }: {
   dealType: string;
   deal: NonNullable<Awaited<ReturnType<typeof getShowById>>>["deal"];
@@ -375,6 +416,7 @@ function UnsupportedDeal({
   totalExpenses: number;
   ticketCount: number;
   expenseRowCount: number;
+  ledger: ReturnType<typeof buildReadinessLedger>;
 }) {
   const friendly: Record<string, string> = {
     flat: "flat guarantee",
@@ -391,8 +433,12 @@ function UnsupportedDeal({
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 ring-1 ring-amber-200/80 mb-5">
             <FileWarning className="h-5 w-5 text-amber-700" />
           </div>
-          <h2 className="font-display text-[22px] font-medium text-ink-900 mb-2" style={{ letterSpacing: "-0.02em" }}>
-            The in-app tool can&apos;t settle a {friendly[dealType] ?? dealType} yet.
+          <h2
+            className="font-display text-[22px] font-medium text-ink-900 mb-2"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            The in-app tool can&apos;t settle a {friendly[dealType] ?? dealType}{" "}
+            yet.
           </h2>
           <p className="text-[13px] text-ink-500 max-w-md mx-auto leading-relaxed">
             Mariana would do this on a Google Sheet at 2am tonight. The inputs
@@ -400,6 +446,8 @@ function UnsupportedDeal({
           </p>
         </CardContent>
       </Card>
+
+      <ReadyToSettleWalkthrough ledger={ledger} />
 
       <Card>
         <CardHeader>
@@ -474,7 +522,10 @@ function UnsupportedDeal({
           <CardContent>
             <div className="flex items-baseline justify-between py-2">
               <span className="text-[13px] text-ink-600">Total to artist</span>
-              <span className="text-[32px] font-mono tabular font-semibold text-ink-900" style={{ letterSpacing: "-0.02em" }}>
+              <span
+                className="text-[32px] font-mono tabular font-semibold text-ink-900"
+                style={{ letterSpacing: "-0.02em" }}
+              >
                 {formatMoney(existingSettlement.totalToArtist)}
               </span>
             </div>
@@ -485,23 +536,202 @@ function UnsupportedDeal({
   );
 }
 
+function ReadyToSettleWalkthrough({
+  ledger,
+}: {
+  ledger: ReturnType<typeof buildReadinessLedger>;
+}) {
+  const riskVariant =
+    ledger.risk === "critical"
+      ? "rose"
+      : ledger.risk === "high"
+        ? "amber"
+        : ledger.risk === "medium"
+          ? "sky"
+          : "brand";
+
+  const accent =
+    ledger.risk === "critical"
+      ? "rose"
+      : ledger.risk === "high"
+        ? "amber"
+        : ledger.risk === "medium"
+          ? "sky"
+          : "brand";
+
+  const projection = ledger.projection;
+  const payoutRange =
+    projection.low != null && projection.high != null
+      ? projection.low === projection.high
+        ? formatMoney(projection.high)
+        : `${formatMoney(projection.low)}–${formatMoney(
+            projection.high,
+          )}`
+      : "Needs review";
+
+  return (
+    <Card accent={accent}>
+      <CardHeader>
+        <div>
+          <CardTitle>Ready to Settle walkthrough</CardTitle>
+          <CardDescription>
+            A settlement-readiness layer for the unsupported deal state: not a
+            black-box calculator, but a traceable walkthrough Mariana can use
+            before final signoff.
+          </CardDescription>
+        </div>
+        <PlainBadge variant={riskVariant}>
+          {ledger.risk.toUpperCase()} · {ledger.score}%
+        </PlainBadge>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <Field label="Readiness mode" value={ledger.mode} />
+          <Field label="Projected payout" mono value={payoutRange} />
+          <Field
+            label="Payout swing"
+            mono
+            value={formatMoney(projection.swing)}
+          />
+        </div>
+
+        <div className="rounded-lg bg-canvas-soft ring-1 ring-ink-200/60 p-4">
+          <div className="eyebrow text-[10px] text-ink-500 mb-2">
+            Next best action
+          </div>
+          <div className="text-[13px] text-ink-900 leading-relaxed">
+            {ledger.nextBestAction}
+          </div>
+        </div>
+
+        {ledger.topIssues.length > 0 && (
+          <div>
+            <div className="eyebrow text-[10px] text-ink-500 mb-2">
+              Blocking / risky items
+            </div>
+            <div className="space-y-2">
+              {ledger.topIssues.map((issue) => (
+                <div
+                  key={issue.id}
+                  className="rounded-lg border border-ink-200/70 bg-white p-3"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[13px] font-medium text-ink-900">
+                        {issue.title}
+                      </div>
+                      <div className="text-[12px] text-ink-500 mt-1 leading-relaxed">
+                        {issue.detail}
+                      </div>
+                    </div>
+                    <PlainBadge
+                      variant={
+                        issue.severity === "critical"
+                          ? "rose"
+                          : issue.severity === "high"
+                            ? "amber"
+                            : issue.severity === "medium"
+                              ? "sky"
+                              : "default"
+                      }
+                    >
+                      {issue.severity}
+                    </PlainBadge>
+                  </div>
+                  <div className="text-[12px] text-ink-700 mt-2 leading-relaxed">
+                    Recommended: {issue.recommendedAction}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="rounded-lg border border-brand-200/70 bg-brand-50/40 p-4">
+          <div className="eyebrow text-[10px] text-brand-800 mb-2">
+            Tour manager walkthrough
+          </div>
+          <p className="text-[13px] text-ink-800 leading-relaxed">
+            {ledger.tourManagerWalkthrough}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="rounded-lg border border-ink-200/70 bg-white p-4">
+            <div className="eyebrow text-[10px] text-ink-500 mb-2">
+              Deal interpretation
+            </div>
+            <div className="space-y-2 text-[12.5px] text-ink-700">
+              <div className="flex justify-between gap-4">
+                <span>Guarantee</span>
+                <span className="font-mono tabular text-ink-900">
+                  {formatMoney(projection.guaranteeAmount)}
+                </span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Percentage</span>
+                <span className="font-mono tabular text-ink-900">
+                  {projection.percentage != null
+                    ? `${Math.round(projection.percentage * 100)}%`
+                    : "—"}
+                </span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Expense cap</span>
+                <span className="font-mono tabular text-ink-900">
+                  {formatMoney(projection.expenseCap)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-ink-200/70 bg-white p-4">
+            <div className="eyebrow text-[10px] text-ink-500 mb-2">
+              Source trail
+            </div>
+            <div className="space-y-2 text-[12.5px] text-ink-700">
+              <div className="flex justify-between gap-4">
+                <span>Gross box office</span>
+                <span className="font-mono tabular text-ink-900">
+                  {formatMoney(projection.grossBoxOffice)}
+                </span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Fees</span>
+                <span className="font-mono tabular text-ink-900">
+                  {formatMoney(projection.totalFees)}
+                </span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Expenses applied</span>
+                <span className="font-mono tabular text-ink-900">
+                  {formatMoney(projection.expensesApplied)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function SupportedSettlement({
   calc,
   existingSettlement,
 }: {
-  calc: Extract<
-    ReturnType<typeof calculateSettlement>,
-    { supported: true }
-  >;
+  calc: Extract<ReturnType<typeof calculateSettlement>, { supported: true }>;
   existingSettlement: NonNullable<
     Awaited<ReturnType<typeof getShowById>>
   >["settlement"];
 }) {
   return (
     <>
-      {/* Hero number */}
       <div className="text-center py-10 mb-2">
-        <div className="eyebrow text-[10px] text-ink-400 mb-3">Total to artist</div>
+        <div className="eyebrow text-[10px] text-ink-400 mb-3">
+          Total to artist
+        </div>
         <div
           className="text-[72px] font-mono tabular font-bold text-ink-900 leading-none"
           style={{ letterSpacing: "-0.03em" }}
@@ -522,16 +752,15 @@ function SupportedSettlement({
         )}
         {existingSettlement?.totalToArtist != null &&
           existingSettlement.totalToArtist !== calc.totalToArtist && (
-          <div className="text-[12px] text-ink-400 mt-2">
-            Originally settled at{" "}
-            <span className="font-mono tabular text-ink-600">
-              {formatMoney(existingSettlement.totalToArtist)}
-            </span>
-          </div>
-        )}
+            <div className="text-[12px] text-ink-400 mt-2">
+              Originally settled at{" "}
+              <span className="font-mono tabular text-ink-600">
+                {formatMoney(existingSettlement.totalToArtist)}
+              </span>
+            </div>
+          )}
       </div>
 
-      {/* Worksheet breakdown */}
       <Card accent="brand">
         <CardHeader>
           <div>
